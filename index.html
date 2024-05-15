@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row"></div>
+    </div>
+
+
+    <script>
+        
+        let api = "https://api.github.com/users";
+        let row = document.querySelector(".row");
+
+        // make a function to get the data 
+
+        let getdata = async()=>{
+        let data = await fetch(api);
+        let response = await data.json() 
+        // console.log(response);
+        return response;
+        }
+
+        getdata().then((res)=>{
+         
+            res.forEach((person)=>{
+                // console.log(person)
+                let col = document.createElement("div")
+                col.classList.add("col-lg-3")
+                row.appendChild(col);
+
+                let card = document.createElement("div")
+
+                card.classList.add("card")
+
+                col.appendChild(card);
+
+                let img = document.createElement("img")
+                img.src = person.avatar_url
+                card.appendChild(img);
+
+                let name = document.createElement("h1")
+                name.innerHTML = person.login;
+                card.appendChild(name)
+
+            })
+
+        })
+  </script>
+</body>
+</html>
